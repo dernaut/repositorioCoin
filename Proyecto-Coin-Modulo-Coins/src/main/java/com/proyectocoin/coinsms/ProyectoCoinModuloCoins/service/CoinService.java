@@ -3,6 +3,7 @@ package com.proyectocoin.coinsms.ProyectoCoinModuloCoins.service;
 import com.proyectocoin.coinsms.ProyectoCoinModuloCoins.model.Coin;
 import com.proyectocoin.coinsms.ProyectoCoinModuloCoins.repository.ICoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class CoinService {
     public Coin eliminarCoin(int id){
         Coin coin_aux= new Coin();
         iCoinRepository.findById(id).map(coin1 -> {
+            coin_aux.setId(coin1.getId());
             coin_aux.setName(coin1.getName());
             coin_aux.setUrl_icon(coin1.getUrl_icon());
             coin_aux.setPrice(coin1.getPrice());
@@ -63,4 +65,9 @@ public class CoinService {
         iCoinRepository.deleteById(id);
         return coin_aux;
     }
+
+    public Iterable<Coin> obtenerCoinPage(Pageable pageable){
+        return iCoinRepository.findAll(pageable);
+    }
+
 }

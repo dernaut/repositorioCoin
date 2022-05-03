@@ -3,6 +3,7 @@ package com.proyectocoin.coinsms.ProyectoCoinModuloCoins.controller;
 import com.proyectocoin.coinsms.ProyectoCoinModuloCoins.model.Coin;
 import com.proyectocoin.coinsms.ProyectoCoinModuloCoins.service.CoinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,10 @@ public class CoinController {
     @GetMapping("/byPrice")
     public List<Coin> getCoinsByPrice(@RequestParam(name = "price_coin") float price) {
         return coinService.getByPrice(price);
+    }
+    @GetMapping("/all/page")
+    public Iterable<Coin> getAllCoinsPage(Pageable pageable) {
+        return coinService.obtenerCoinPage(pageable);
     }
     @PutMapping("/edit/{id}")
     public Coin editarCoinId(@PathVariable("id") int id, @RequestBody Coin coin){

@@ -5,16 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ICoinRepository extends CrudRepository<Coin, Integer>{
+public interface ICoinRepository extends CrudRepository<Coin, Integer>, PagingAndSortingRepository<Coin, Integer> {
     //select * from tb_coin where name_coin = ?
     //findBy{{nombreAtributo}}(tipoAtributo {{nombreAtributo}}
     List<Coin> findByName(String name);
-
     List<Coin> findByPrice(float price);
 
     Page<Coin> findAll(Pageable pageable);
